@@ -16,13 +16,7 @@ class _MyHomePageState extends State<MyHomePage> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     DeletePost(),
-    UserProfilePage(
-        bio: "0909",
-        location: "Garowe",
-        email: "j@gmail.com",
-        name: "guure",
-        photoUrl:
-            "https://cdn1.vectorstock.com/i/1000x1000/51/05/male-profile-avatar-with-brown-hair-vector-12055105.jpg"),
+    UserProfilePage(),
   ];
 
   void _onItemTapped(int index) {

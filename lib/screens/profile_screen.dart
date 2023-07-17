@@ -5,22 +5,23 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../api.dart';
 import '../model/user_model.dart';
+import '../widget/swich.dart';
 import 'login_reg_screen.dart';
 
 class UserProfilePage extends StatefulWidget {
-  final String name;
-  final String email;
-  final String photoUrl;
-  final String bio;
-  final String location;
+  final String? name;
+  final String? email;
+  final String? photoUrl;
+  final String? bio;
+  final String? location;
 
   const UserProfilePage({
     Key? key,
-    required this.name,
-    required this.email,
-    required this.photoUrl,
-    required this.bio,
-    required this.location,
+    this.name,
+    this.email,
+    this.photoUrl,
+    this.bio,
+    this.location,
   }) : super(key: key);
 
   @override
@@ -70,6 +71,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
     return Scaffold(
         appBar: AppBar(
+          actions: const [ChangeThemeButton()],
           automaticallyImplyLeading: false,
           title: const Text('Profile'),
         ),
@@ -180,7 +182,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                widget.bio,
+                                user.phone!,
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.grey[700],

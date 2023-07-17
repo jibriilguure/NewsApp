@@ -75,6 +75,7 @@ class _EditPostState extends State<EditPost> {
     request.fields['desc'] = _descriptionController.text;
     request.fields["username"] = userName;
     request.fields["id"] = widget.id;
+    request.fields["category"] = dropdownValue;
 
     var pic =
         await http.MultipartFile.fromPath("image", _pickedImageFile!.path);
@@ -94,6 +95,7 @@ class _EditPostState extends State<EditPost> {
     // }
   }
 
+  String dropdownValue = 'News';
   @override
   Widget build(BuildContext context) {
     getUserName();
@@ -120,6 +122,28 @@ class _EditPostState extends State<EditPost> {
                 decoration: const InputDecoration(
                   labelText: 'Description',
                 ),
+              ),
+              const SizedBox(height: 16.0),
+              DropdownButton<String>(
+                // Step 3.
+                value: dropdownValue,
+                // Step 4.
+                items: <String>['Technology', 'Health', 'News', 'Sports']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(
+                      value,
+                      style: const TextStyle(fontSize: 17),
+                    ),
+                  );
+                }).toList(),
+                // Step 5.
+                onChanged: (String? newValue) {
+                  setState(() {
+                    dropdownValue = newValue!;
+                  });
+                },
               ),
               const SizedBox(height: 16.0),
               _pickedImageFile == null

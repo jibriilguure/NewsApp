@@ -42,7 +42,7 @@ class _DeletePostState extends State<DeletePost> {
   }
 
   Future<void> deletePost(String postId) async {
-    final url = 'http://192.168.0.105/newsappapi/delete_post.php?id=$postId';
+    final url = '${Config.baseUrl}/newsappapi/delete_post.php?id=$postId';
 
     final response = await http.delete(Uri.parse(url));
 
@@ -141,8 +141,12 @@ class _DeletePostState extends State<DeletePost> {
                             backgroundImage:
                                 NetworkImage(imageUrl + post.image),
                           ),
-                          title: Text(post.title),
-                          subtitle: Text(post.desc),
+                          title: Text(
+                            post.title,
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                          subtitle: Text(post.desc,
+                              style: const TextStyle(color: Colors.black)),
                         ),
                       ),
                     );

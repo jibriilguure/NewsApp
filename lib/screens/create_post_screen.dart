@@ -50,6 +50,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     request.fields['title'] = _titleController.text;
     request.fields['desc'] = _descriptionController.text;
     request.fields["username"] = userName;
+    request.fields["category"] = dropdownValue;
 
     var pic =
         await http.MultipartFile.fromPath("image", _pickedImageFile!.path);
@@ -59,22 +60,16 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
 
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Post deleted"),
+        content: Text("Post Created"),
       ));
     } else {
       print("eroro");
     }
-    //  var data = json.decode(response.b)
-
-    // if(data =="hhh"){
-
-    // }
   }
 
+  String dropdownValue = 'News';
   @override
   Widget build(BuildContext context) {
-    String? dropdownValue;
-
     getUserName();
     return Scaffold(
       appBar: AppBar(
@@ -100,27 +95,29 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   labelText: 'Description',
                 ),
               ),
-              DropdownButtonFormField<String>(
+              // Step 1.
+
+// Step 2.
+              DropdownButton<String>(
+                // Step 3.
                 value: dropdownValue,
-                decoration: InputDecoration(labelText: 'Select an option'),
+                // Step 4.
+                items: <String>['Technology', 'Health', 'News', 'Sports']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(
+                      value,
+                      style: const TextStyle(fontSize: 17),
+                    ),
+                  );
+                }).toList(),
+                // Step 5.
                 onChanged: (String? newValue) {
                   setState(() {
                     dropdownValue = newValue!;
                   });
                 },
-                validator: (String? value) {
-                  if (value == null) {
-                    return 'Please select an option';
-                  }
-                  return null;
-                },
-                items: <String>['One', 'Two', 'Three', 'Four']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
               ),
               const SizedBox(height: 16.0),
               _pickedImageFile == null
@@ -148,8 +145,10 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
               ElevatedButton(
                 onPressed: () {
                   // Upload post data to server
-                  createPost().then((value) => Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyHomePage())));
+                  createPost().then((value) => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MyHomePage())));
                 },
                 child: const Text('Upload'),
               ),

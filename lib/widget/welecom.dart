@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:news_app/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../api.dart';
+
 class Welecom extends StatefulWidget {
   const Welecom({super.key});
 
@@ -15,14 +17,13 @@ class Welecom extends StatefulWidget {
 class _WelecomState extends State<Welecom> {
   String userName = "";
   List<UserModel> userData = [];
-  var imageUrl = "http://192.168.0.105/newsappapi/uploads/userImages/";
+  var imageUrl = "${Config.baseUrl}/newsappapi/uploads/userImages/";
   Future<void> userInfo() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 
     userName = preferences.getString("userName2")!;
     try {
-      String url =
-          "http://192.168.0.105/newsappapi/welcom.php?username=$userName";
+      String url = "${Config.baseUrl}/newsappapi/welcom.php?username=$userName";
       final response = await http.get(
         Uri.parse(url),
       );
@@ -77,7 +78,7 @@ class _WelecomState extends State<Welecom> {
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                        // color: Colors.black,
                       ),
                     ),
                   ],

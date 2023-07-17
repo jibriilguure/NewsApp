@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:news_app/api.dart';
 import 'package:news_app/model/postModel.dart';
 import 'package:news_app/screens/create_post_screen.dart';
@@ -9,6 +10,7 @@ import 'package:news_app/widget/welecom.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
+import '../widget/category_widget.dart';
 import '../widget/post_widget.dart';
 import 'post_detils.dart';
 
@@ -41,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
       final list = json.decode(response.body) as List<dynamic>;
       postData = list.map((e) => PostModel.fromJson(e)).toList();
     } catch (error) {
-      print('Khaladku waxa uu ka jiraa ---> $error');
+      print('Khaladku waxa uu ka jiraa POSTPAGE ---> $error');
       return;
     }
   }
@@ -53,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("News App"),
       ),
       body: Padding(
@@ -61,8 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Container(height: 100, child: Welecom()),
-              //  CategoryWidget(),
+              const SizedBox(height: 100, child: Welecom()),
+              CategoryWidget(),
               FutureBuilder<void>(
                 future: postApi(),
                 builder: (context, snapshot) {
@@ -70,8 +72,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     return const Center(
                         child:
                             CircularProgressIndicator()); // Show a loading indicator while data is being fetched
-                  } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
                   } else {
                     return ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
@@ -85,6 +85,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => PostDetailPage(
+                                          cat: postData[index].cat,
+                                          time: DateFormat.yMMMd().format(
+                                              DateTime.parse(
+                                                  postData[index].time)),
+                                          username: postData[index].username,
                                           title: postData[index].title,
                                           description: postData[index].desc,
                                           img: imageUrl + postData[index].image,

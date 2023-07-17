@@ -5,6 +5,7 @@ class PostModel {
   late final String desc;
   late final String image;
   late final String time;
+  late final String cat;
 
   PostModel({
     required this.id,
@@ -13,6 +14,7 @@ class PostModel {
     required this.desc,
     required this.image,
     required this.time,
+    required this.cat,
   });
 
   PostModel.fromJson(Map<String, dynamic> json) {
@@ -22,16 +24,18 @@ class PostModel {
     desc = json['desc'];
     image = json['image'];
     time = json['time'];
+    cat = json['cat'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['username'] = this.username;
-    data['title'] = this.title;
-    data['desc'] = this.desc;
-    data['image'] = this.image;
-    data['time'] = this.time;
-    return data;
-  }
+  // Map<String, dynamic> toJson() {
+  //   final Map<String, dynamic> data = new Map<String, dynamic>();
+  //   data['id'] = this.id;
+  //   data['username'] = this.username;
+  //   data['title'] = this.title;
+  //   data['desc'] = this.desc;
+  //   data['image'] = this.image;
+  //   data['time'] = this.time;
+  //   data['cat'] = this.cat;
+  //   return data;
+  // }
 }

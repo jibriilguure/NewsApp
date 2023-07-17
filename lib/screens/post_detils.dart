@@ -4,11 +4,17 @@ class PostDetailPage extends StatelessWidget {
   final String title;
   final String description;
   final String img;
+  final String time;
+  final String username;
+  final String cat;
 
   PostDetailPage({
     required this.title,
     required this.description,
     required this.img,
+    required this.time,
+    required this.username,
+    required this.cat,
   });
 
   @override
@@ -21,13 +27,16 @@ class PostDetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              height: 200,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(img),
-                  fit: BoxFit.cover,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: 200,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(img),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
@@ -45,9 +54,24 @@ class PostDetailPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
-                    'Posted on: July 06, 2023',
-                    style: TextStyle(fontSize: 16),
+                  ListTile(
+                    title: Text(
+                      'By $username',
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    subtitle: Text(
+                      'Posted on: $time',
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    trailing: Chip(label: Text(cat)),
+                  ),
+                  const SizedBox(height: 16),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Divider(
+                      height: 6,
+                      color: Colors.grey,
+                    ),
                   ),
                   const SizedBox(height: 16),
                   Text(
