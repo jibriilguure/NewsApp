@@ -37,7 +37,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => PostCategoryScreen(
+                builder: (context) => const PostCategoryScreen(
                   catName: 'Technology',
                 ),
               ),
@@ -57,7 +57,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => PostCategoryScreen(
+                builder: (context) => const PostCategoryScreen(
                   catName: 'News',
                 ),
               ),
@@ -78,7 +78,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => PostCategoryScreen(
+                builder: (context) => const PostCategoryScreen(
                   catName: 'Health',
                 ),
               ),
@@ -98,7 +98,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => PostCategoryScreen(
+                builder: (context) => const PostCategoryScreen(
                   catName: 'Sports',
                 ),
               ),

@@ -12,13 +12,13 @@ import '../api.dart';
 class EditPost extends StatefulWidget {
   final String id;
   final String title;
-  // String image;
   final String desc;
+  final String category;
   const EditPost(
       {required this.id,
       required this.desc,
       required this.title,
-      // required this.image,
+      required this.category,
       super.key});
 
   @override
@@ -45,14 +45,14 @@ class _EditPostState extends State<EditPost> {
     super.dispose();
   }
 
-  String userName = "";
+  // String userName = "";
 
-  Future getUserName() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    setState(() {
-      userName = preferences.getString("userName2")!;
-    });
-  }
+  // Future getUserName() async {
+  //   SharedPreferences preferences = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     userName = preferences.getString("userName2")!;
+  //   });
+  // }
 
   void _getImage() async {
     final pickedImage =
@@ -68,37 +68,42 @@ class _EditPostState extends State<EditPost> {
   }
 
   Future createPost() async {
-    final url = Uri.parse("${Config.baseUrl}/newsappapi/post_api.php?update");
+    try {
+      final url = Uri.parse("${Config.baseUrl}/newsappapi/post_api.php?update");
 
-    var request = await http.MultipartRequest("POST", url);
-    request.fields['title'] = _titleController.text;
-    request.fields['desc'] = _descriptionController.text;
-    request.fields["username"] = userName;
-    request.fields["id"] = widget.id;
-    request.fields["category"] = dropdownValue;
+      var request = await http.MultipartRequest("POST", url);
+      request.fields['title'] = _titleController.text;
+      request.fields['desc'] = _descriptionController.text;
+      // request.fields["username"] = userName;
+      request.fields["id"] = widget.id;
+      request.fields["category"] = dropdownValue;
 
-    var pic =
-        await http.MultipartFile.fromPath("image", _pickedImageFile!.path);
-    request.files.add(pic);
+      var pic =
+          await http.MultipartFile.fromPath("image", _pickedImageFile!.path);
+      request.files.add(pic);
 
-    var response = await request.send();
+      var response = await request.send();
 
-    if (response.statusCode == 200) {
-      print("image uploaded seccssfully");
-    } else {
-      print("eroro");
+      if (response.statusCode == 200) {
+        print("image uploaded seccssfully");
+      } else {
+        print("eroro");
+      }
+      //  var data = json.decode(response.b)
+
+      // if(data =="hhh"){
+
+      // }
+    } catch (e) {
+      print(e);
     }
-    //  var data = json.decode(response.b)
-
-    // if(data =="hhh"){
-
-    // }
   }
 
-  String dropdownValue = 'News';
+  String dropdownValue = "News";
+  var imageUrl = "${Config.baseUrl}/newsappapi/uploads/";
   @override
   Widget build(BuildContext context) {
-    getUserName();
+    // getUserName();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Eidt Post'),
@@ -146,6 +151,7 @@ class _EditPostState extends State<EditPost> {
                 },
               ),
               const SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               _pickedImageFile == null
                   ? ElevatedButton.icon(
                       onPressed: _getImage,
@@ -171,8 +177,9 @@ class _EditPostState extends State<EditPost> {
               ElevatedButton(
                 onPressed: () {
                   // Upload post data to server
-                  createPost().then((value) => Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyHomePage())));
+                  createPost();
+                  // .then((value) => Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) => MyHomePage())));
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text("Post Updated"),
                   ));

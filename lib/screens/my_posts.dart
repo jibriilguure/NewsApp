@@ -17,8 +17,6 @@ class DeletePost extends StatefulWidget {
 class _DeletePostState extends State<DeletePost> {
   String userName = "";
 
-  Future getUserName() async {}
-
   var imageUrl = "${Config.baseUrl}/newsappapi/uploads/";
   //post category apiska weeye
   List<PostModel> postData = [];
@@ -42,8 +40,7 @@ class _DeletePostState extends State<DeletePost> {
   }
 
   Future<void> deletePost(String postId) async {
-    final url = '${Config.baseUrl}/newsappapi/delete_post.php?id=$postId';
-
+    final url = '${Config.baseUrl}/newsappapi/delete.php?deletepost&id=$postId';
     final response = await http.delete(Uri.parse(url));
 
     if (response.statusCode == 200) {
@@ -101,6 +98,7 @@ class _DeletePostState extends State<DeletePost> {
                                         id: post.id,
                                         desc: post.desc,
                                         title: post.title,
+                                        category: post.cat,
                                       )));
                         } else if (direction == DismissDirection.endToStart) {
                           setState(() {

@@ -26,16 +26,4 @@ class PostModel {
     time = json['time'];
     cat = json['cat'];
   }
-
-  // Map<String, dynamic> toJson() {
-  //   final Map<String, dynamic> data = new Map<String, dynamic>();
-  //   data['id'] = this.id;
-  //   data['username'] = this.username;
-  //   data['title'] = this.title;
-  //   data['desc'] = this.desc;
-  //   data['image'] = this.image;
-  //   data['time'] = this.time;
-  //   data['cat'] = this.cat;
-  //   return data;
-  // }
 }

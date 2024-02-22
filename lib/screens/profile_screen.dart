@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import '../api.dart';
 import '../model/user_model.dart';
 import '../widget/swich.dart';
-import 'login_reg_screen.dart';
+import 'login_screen.dart';
 
 class UserProfilePage extends StatefulWidget {
   final String? name;
@@ -64,6 +64,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
     Future LogOut() async {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       preferences.remove("userName2");
+      preferences.remove("admin");
       // ignore: use_build_context_synchronously
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginScreen()));
